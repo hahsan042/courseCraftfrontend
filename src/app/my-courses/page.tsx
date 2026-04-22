@@ -13,8 +13,7 @@ interface Course {
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_NEXT_URI;
-const token = localStorage.getItem("token");
-console.log("LocalStorage Token:", token); // এটি কি Null নাকি ডাটা আছে?
+
 export default function MyCoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,14 +21,14 @@ export default function MyCoursesPage() {
   useEffect(() => {
     const fetchMyCourses = async () => {
       try {
+        // ✅ localStorage শুধু useEffect এর ভেতর নিরাপদ
         const token = localStorage.getItem("token");
+        
         if (!token) {
           window.location.href = "/login";
           return;
         }
 
-        // ইউজারের প্রোফাইল থেকে কোর্সগুলো নিয়ে আসা
-        // সাধারণত ভেরিফাই হওয়ার পরই ব্যাকএন্ড এখানে কোর্সগুলো পাঠায়
         const res = await fetch(`${BASE_URL}/api/v2/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -37,12 +36,8 @@ export default function MyCoursesPage() {
         });
         
         const data = await res.json();
-        console.log(data);
-        
 
         if (data.success) {
-          // যদি আপনার ব্যাকএন্ড ডাটা data.data.enrolledCourses এ থাকে তবে সেটা চেক করুন
-          // আমরা এখানে আপনার দেওয়া স্ট্রাকচার অনুযায়ী data.data.courses নিচ্ছি
           setCourses(data.data.courses || []);
         }
       } catch (err) {

@@ -239,7 +239,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             <motion.div 
               initial={{ opacity: 0, x: -20 }} 
               animate={{ opacity: 1, x: 0 }}
-              className="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 relative overflow-hidden"
+              className="bg-white px-6 py-10 rounded-[2rem] shadow-sm border border-slate-100 relative overflow-hidden"
             >
               {/* 💰 ডাইনামিক প্রাইজ ট্যাগ */}
               <div className="absolute top-0 right-0 bg-blue-600 text-white px-6 py-2 rounded-bl-3xl font-black text-lg shadow-lg">
